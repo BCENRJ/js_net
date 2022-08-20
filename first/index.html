@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Угадай число</title>
+</head>
+<body>
+    
+
+    <script>
+        document.write("<h1>Игра: Угадайте число 🔢<br>Обновите страницу, чтобы начать игру</h1>");
+        let randomNum = Math.floor(Math.random() * 1000);
+        console.log(`random number equals to: ${randomNum}`);
+       
+        while (true) {
+            let guessedNum = prompt("Угадайте число от 0 до 999, q(esc) - выход", "");
+            console.log(`guessed number is ${guessedNum}`);
+            if (guessedNum === "q" || guessedNum === null) {
+                break;
+            } else if (validateNum(guessedNum)) {
+                if (guessedNum == randomNum) {
+                    alert("вы угадали число 🎉")
+                } else if (guessedNum > randomNum) {
+                    alert("Меньше")
+                } else if (guessedNum < randomNum) {
+                    alert("Больше")
+            }
+        }
+          
+        }
+
+        function validateNum(value) {
+            if (value.trim() === "") {
+                alert("❌ введите значение");
+                return false
+            }
+
+            if (isNaN(value)){
+                alert("❌ введите число");
+                return false
+            } 
+            
+            if (+value < 0 || +value > 999){
+                alert("❌ введите число от 0 до 999");
+                return false
+            }
+
+            return true
+        }
+
+    </script>
+
+</body>
+</html>
