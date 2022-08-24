@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CountDown Timer</title>
+</head>
+<body>
+    <p>До окончания конкурса осталось секунд: <span id="timer">00:00:05</span></p>
+
+
+    <script>
+        const getTimer = document.getElementById("timer");
+        const refreshInterval = setInterval(countdown, 1000, getTimer);
+
+        function addPad(dt) {
+            return dt.toString().padStart(2, "0");
+        }
+
+        function startDownload(href) {
+            const anchor = document.createElement("a");
+            anchor.href = href;
+            anchor.download = "_blank";
+            anchor.target = "_blank";
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            console.log(anchor);
+        }
+
+        function countdown(thisTimer) {
+            if (thisTimer.textContent === "00:00:00") {
+                alert("Вы победили в конкурсе!");
+                clearInterval(refreshInterval);
+                startDownload("https://www.dundeecity.gov.uk/sites/default/files/publications/civic_renewal_forms.zip");
+                return;
+            }
+
+            const splitTimer = getTimer.textContent.split(":");
+            const dt = new Date();
+            dt.setHours(+splitTimer[0], +splitTimer[1], +splitTimer[2]);
+            dt.setSeconds(dt.getSeconds() - 1);
+
+            thisTimer.textContent = `${addPad(dt.getHours())}:${addPad(dt.getMinutes())}:${addPad(dt.getSeconds())}`;
+        }
+    </script>
+</body>
+</html>
+

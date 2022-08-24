@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<main class="content">
+  <div class="card">
+    <div class="clicker">
+      <div class="clicker__status">
+        Всего кликов <span id="clicker__counter">0</span><br>
+        Скорость клика: <span id="clicker__speed">0</span> м.
+      </div>
+      <img src="https://i.postimg.cc/T1bWdf2y/1024px-Pepperidge-Farm-Nantucket-Cookie.jpg" alt="cookie-img" id="cookie"
+           class="clicker__cookie" width="200">
+    </div>
+  </div>
+</main>
+
+<script>
+    const counter = document.getElementById("clicker__counter");
+    const cookie = document.getElementById("cookie");
+    const speed = document.getElementById("clicker__speed");
+
+    const clickTime = { old_click: undefined };
+
+    function imgGetBigger(img) {
+        img.width += 20;
+        img.height += 20;
+    }
+
+    function imgGetSmaller(img) {
+        img.width -= 20;
+        img.height -= 20;
+    }
+
+    function speedClicking() {
+        if (clickTime.old_click !== undefined) {
+            const diff = Math.abs(new Date() - clickTime.old_click);
+            speed.textContent = `${String(diff)}`;
+        }
+    }
+
+    cookie.onclick = () => {
+        counter.textContent = String(Number(counter.textContent) + 1);
+        imgGetBigger(cookie);
+        setTimeout(imgGetSmaller, 100, cookie);
+        speedClicking();
+        clickTime.old_click = new Date();
+    };
+
+</script>
+</body>
+</html>
